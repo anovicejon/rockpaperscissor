@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+// Create function that computer chooses between 3 options (RPS)
+
+function getComputerSelect() {
+    const options = ['rock', 'paper', 'scissors'];
+    const computerRandomChoose = Math.floor(Math.random()*options.length);
+    return options[computerRandomChoose];
+}
+
+const computerSelect = getComputerSelect();
+console.log(computerSelect);
+
+
+
+//Create function that prompts player between rock paper scissor CASE INSENSITIVE
+
+function playerSelect () {
+    return prompt("Rock, Paper, or Scissor?").toLowerCase();
+}
+
+
+
+
+
+// Create function that compares computer and player choices (one round of game)
+let playerScore = 0
+let computerScore = 0
+let roundWinner = ''
+
+function playRound (playerSelect,computerSelect) {
+    if (playerSelect === computerSelect) {
+        console.log("It's a Draw!");
+    }
+    else if (
+        (playerSelect === 'rock' && computerSelect === 'scissor') ||
+        (playerSelect ==='paper'&& computerSelect === 'rock') ||
+        (playerSelect ==='scissors' && computerSelect === 'paper')
+        ) {
+        console.log("Player Wins this round")    
+        }
+    else if (
+        (computerSelect === 'rock' && playerSelect === 'scissor') ||
+        (computerSelect === 'scissor' && playerSelect === 'paper') ||
+        (computerSelect === 'paper' && playerSelect === 'rock')
+        ) {
+        console.log("Computer Wins this round")    
+        }
+    else {
+        console.log("Invalid Player Input.")
+    }
+        }
+    
+    
+playRound(playerSelect(),computerSelect);
+playRound(playerSelect(),computerSelect);
+playRound(playerSelect(),computerSelect);
+
+
+
+//Create function that declares the winner. invoke the function to see the winner, not by console.log
+
+
+    </script>
+</body>
+</html>

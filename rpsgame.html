@@ -6,67 +6,98 @@
     <title>Document</title>
 </head>
 <body>
+    <button id="rock">Rock</button>
+    <button id="paper">Paper</button>
+    <button id="scissors">Scissors</button>
+    <div id="result"></div>
+    <div id = "score"></div>
+    <div id = "winner"></div>
+
     <script>
 
-// Create function that computer chooses between 3 options (RPS)
+    function playerSelect () {
+    return prompt("Rock, Paper, or Scissors?").toLowerCase();
+    }
 
-function getComputerSelect() {
+    function getComputerSelect() {
     const options = ['rock', 'paper', 'scissors'];
     const computerRandomChoose = Math.floor(Math.random()*options.length);
     return options[computerRandomChoose];
-}
-
-const computerSelect = getComputerSelect();
-console.log(computerSelect);
+    };
 
 
-
-//Create function that prompts player between rock paper scissor CASE INSENSITIVE
-
-function playerSelect () {
-    return prompt("Rock, Paper, or Scissor?").toLowerCase();
-}
+    let playerScore = 0
+    let computerScore = 0
 
 
+    function playRound (playerSelect) {
+    const computerSelect = getComputerSelect();
+    let result;
+//Logs the computer's choice for validation   
+    console.log(computerSelect);
 
 
-
-// Create function that compares computer and player choices (one round of game)
-let playerScore = 0
-let computerScore = 0
-let roundWinner = ''
-
-function playRound (playerSelect,computerSelect) {
     if (playerSelect === computerSelect) {
-        console.log("It's a Draw!");
+        result = "It's a Draw";
     }
     else if (
-        (playerSelect === 'rock' && computerSelect === 'scissor') ||
+        (playerSelect === 'rock' && computerSelect === 'scissors') ||
         (playerSelect ==='paper'&& computerSelect === 'rock') ||
         (playerSelect ==='scissors' && computerSelect === 'paper')
         ) {
-        console.log("Player Wins this round")    
+        result = "Player Wins this round";
+        playerScore ++;
         }
     else if (
-        (computerSelect === 'rock' && playerSelect === 'scissor') ||
-        (computerSelect === 'scissor' && playerSelect === 'paper') ||
+        (computerSelect === 'rock' && playerSelect === 'scissors') ||
+        (computerSelect === 'scissors' && playerSelect === 'paper') ||
         (computerSelect === 'paper' && playerSelect === 'rock')
         ) {
-        console.log("Computer Wins this round")    
+        result = "Computer Wins this round" ;
+        computerScore ++;  
         }
     else {
-        console.log("Invalid Player Input.")
-    }
+        result = "Invalid Player Input."
+    }  
+    document.querySelector('#result').textContent = result;
+
+    document.querySelector('#score').textContent = `Player : ${playerScore}, Computer : ${computerScore}`;
+    showWinner ();}
+//Function to determine winner after 5 rounds
+    function showWinner() {
+        let winnerMessage
+        if (playerScore === 5) {
+            winnerMessage = 'Player Wins';
+            resetGame();
+        } else if (computerScore === 5 ) {
+            winnerMessage = " Computer Wins";
+            resetGame();
         }
-    
-    
-playRound(playerSelect(),computerSelect);
-playRound(playerSelect(),computerSelect);
-playRound(playerSelect(),computerSelect);
+        document.querySelector('#winner').textContent = winnerMessage;
+        
+    }
+
+    function resetGame() {
+        playerScore= 0;
+        computerScore = 0;
+        document.querySelector('#result').textContent = '';
+        document.querySelector('#winner').textContent = '';
+    }
+
+//Event Listeners for Clicking the Buttons
+    document.querySelector('#rock').addEventListener('click', function () {
+    playRound('rock');
+    });
+    document.querySelector('#paper').addEventListener('click', function () {
+    playRound('paper');
+    });
+    document.querySelector('#scissors').addEventListener('click', function () {
+    playRound('scissors');
+    });
 
 
 
-//Create function that declares the winner. invoke the function to see the winner, not by console.log
+
 
 
     </script>
